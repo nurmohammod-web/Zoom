@@ -4,7 +4,9 @@ import { Server } from "socket.io";
 // Standalone Socket.io signaling server. Pure relay — no database access.
 // Persistence (rooms/participants) lives in the Next.js API routes.
 
-const PORT = Number(process.env.SIGNALING_PORT ?? 4000);
+// Railway (and most PaaS) inject PORT and route their public URL to it.
+// Fall back to SIGNALING_PORT for local dev.
+const PORT = Number(process.env.PORT ?? process.env.SIGNALING_PORT ?? 4000);
 const MAX_PER_ROOM = 4;
 
 interface PeerMeta {
